@@ -2,7 +2,7 @@
 
 ## Completed
 
-- **14 Python tests passed.** Both included domains were checked against all five starter scenarios with their faulty and handwritten reference controllers. Additional checks covered truthful fault coverage, replay integrity, historical violations, idempotency conflicts, provider/runner errors, cancellation, credential exclusion, repair allowlists, repair attempt limits, and failure reduction.
+- **15 Python tests passed.** Both included domains were checked against all five starter scenarios with their faulty and handwritten reference controllers. Additional checks covered truthful fault coverage, replay integrity, historical violations, idempotency conflicts, provider/runner errors, cancellation, credential exclusion, local configuration precedence, repair allowlists, repair attempt limits, and failure reduction.
 - **TypeScript checks passed.** The dashboard, server routes, eve configuration, and typed inspection tools compile.
 - **Optimized Next.js build passed.** The eve investigator runtime also built successfully.
 - **Two browser tests passed.** The main test exercised an actual offline campaign, a duplicated workspace, deterministic replay, candidate source import, Docker verification, all four verification cases, and evidence ZIP download. The second checked the other agent's setup, malformed experiment rejection, and provider connection status.

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import os
+import re
+from pathlib import Path
 import urllib.error
 import urllib.request
 
@@ -10,6 +12,18 @@ PROVIDERS = {
     "baseten": {"url": "https://inference.baseten.co/v1", "key": "BASETEN_API_KEY", "model_key": "BASETEN_MODEL", "model": "meta-models/muse-spark-open-1026"},
     "fireworks": {"url": "https://api.fireworks.ai/inference/v1", "key": "FIREWORKS_API_KEY", "model_key": "FIREWORKS_MODEL", "model": ""},
 }
+
+
+def load_environment(directory=None):
+    root = Path(directory) if directory else Path(__file__).resolve().parents[2]
+    for name in (".env.local", ".env"):
+        path = root / name
+        if not path.exists():
+            continue
+        for line in path.read_text().splitlines():
+            match = re.match(r"^([A-Z_][A-Z_0-9]*)=(.*)$", line)
+            if match and not os.environ.get(match[1]):
+                os.environ[match[1]] = match[2].strip().strip("\"'")
 
 
 def configuration():

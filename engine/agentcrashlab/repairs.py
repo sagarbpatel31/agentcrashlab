@@ -94,6 +94,9 @@ import json
 import os
 import unittest
 from agentcrashlab.engine import run
+from agentcrashlab.providers import load_environment
+
+load_environment()
 
 SCENARIO = json.loads(%r)
 

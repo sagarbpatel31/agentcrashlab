@@ -73,6 +73,18 @@ class EngineTests(unittest.TestCase):
             with self.subTest(scenario=scenario), self.assertRaises(ContractError):
                 validate_scenario(scenario, self.manifest)
 
+    def test_local_provider_configuration_precedence(self):
+        root = Path(self.temp.name)
+        (root / ".env").write_text("META_MODEL=base-model\nBASETEN_MODEL=base-open-model\n")
+        (root / ".env.local").write_text('META_MODEL="local-model"\n')
+        with patch.dict(os.environ, {}, clear=True):
+            providers.load_environment(root)
+            self.assertEqual(os.environ["META_MODEL"], "local-model")
+            self.assertEqual(os.environ["BASETEN_MODEL"], "base-open-model")
+        with patch.dict(os.environ, {"META_MODEL": "shell-model"}):
+            providers.load_environment(root)
+            self.assertEqual(os.environ["META_MODEL"], "shell-model")
+
     def test_idempotency_key_conflict(self):
         world = World(self.manifest, self.manifest["task"], {"faults": []}, lambda *_: None)
         world.call("create_workspace", {"name": "A", "operation_key": "same"})

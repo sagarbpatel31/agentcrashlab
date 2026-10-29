@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-for (const filename of [".env", ".env.local"]) {
+for (const filename of [".env.local", ".env"]) {
   if (existsSync(filename)) {
     for (const line of readFileSync(filename, "utf8").split("\n")) {
       const match = line.match(/^([A-Z_][A-Z_0-9]*)=(.*)$/);

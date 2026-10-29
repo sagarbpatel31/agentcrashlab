@@ -8,9 +8,11 @@ from .contracts import default_scenarios, inspect_agent, load_agent
 from .engine import get_run, reduce_failure, replay, run
 from .repairs import verify
 from .service import agents, export, serve
+from .providers import load_environment
 
 
 def main():
+    load_environment()
     parser = argparse.ArgumentParser(prog="acl", description="AgentCrashLab: inspect, break, replay and verify Python agents")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("agents")
