@@ -1,0 +1,16 @@
+.runtime/
+node_modules/
+.next/
+.eve/
+.agentcrashlab/
+.venv/
+__pycache__/
+*.pyc
+.env*
+!.env.example
+playwright-report/
+test-results/
+dist/
+.output/
+*.tsbuildinfo
+*.egg-info/

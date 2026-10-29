@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentcrashlab"
+version = "0.1.0"
+description = "Code-aware failure experiments and evidence-based repair verification for Python agents"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+modal = ["modal==1.6.3"]
+
+[project.scripts]
+acl = "agentcrashlab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["engine"]

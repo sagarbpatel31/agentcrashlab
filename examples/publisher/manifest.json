@@ -1,0 +1,14 @@
+{
+  "id": "publisher", "name": "Artifact Publisher", "domain": "publisher",
+  "description": "Publishes the requested artifact revision exactly once while preserving its source.",
+  "entrypoint": "agent.py", "editable_files": ["agent.py"],
+  "task": {"artifact": "design-system", "revision": "v2"},
+  "initial_state": {"artifact": {"name": "design-system", "revision": "v2"}, "publications": []},
+  "historical_state": {"artifact": {"name": "design-system", "revision": "v1"}, "publications": []},
+  "expected_outcomes": ["Exactly one publication", "Only the requested revision is published", "The source artifact is unchanged"],
+  "tools": [
+    {"name": "publish_artifact", "effect": "write", "arguments": {"revision": "string", "operation_key": "string"}, "contract": "Identical writes with the same operation_key return the original result. Timeout outcomes are ambiguous."},
+    {"name": "get_artifact", "effect": "read", "arguments": {}, "contract": "Reads may return an earlier snapshot. Confirm the requested revision before publishing."},
+    {"name": "list_publications", "effect": "read", "arguments": {}}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "workspace", "name": "Workspace Provisioner", "domain": "workspace",
+  "description": "Creates a project workspace, adds the requested members, then invites each person once.",
+  "entrypoint": "agent.py", "editable_files": ["agent.py"],
+  "task": {"name": "Orbital Design", "members": ["Maya", "Theo"]},
+  "initial_state": {"workspaces": [], "members": [], "invites": []},
+  "expected_outcomes": ["Exactly one workspace with the requested name", "Exactly the requested members", "One invitation per member, only after membership exists"],
+  "tools": [
+    {"name": "create_workspace", "effect": "write", "arguments": {"name": "string", "operation_key": "string"}, "contract": "Stable operation_key deduplicates identical writes; a timeout does not establish whether a write committed."},
+    {"name": "list_members", "effect": "read", "arguments": {"workspace_id": "string"}, "contract": "A read may be stale. Re-read to confirm missing members."},
+    {"name": "list_workspaces", "effect": "read", "arguments": {"name": "string"}},
+    {"name": "add_member", "effect": "write", "arguments": {"workspace_id": "string", "member": "string", "operation_key": "string"}, "contract": "Stable operation_key deduplicates identical writes."},
+    {"name": "send_invite", "effect": "write", "arguments": {"workspace_id": "string", "member": "string", "operation_key": "string"}, "contract": "Stable operation_key deduplicates identical writes; invite only after membership exists."}
+  ]
+}
